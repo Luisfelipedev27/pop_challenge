@@ -16,6 +16,8 @@ module Api
 
         def fetch_menus
           self.menus = Menu.all
+
+          true
         end
       end
     end
