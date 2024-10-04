@@ -11,9 +11,7 @@ RSpec.describe Api::V1::MenusController, type: :request do
         expect(response).to have_http_status(:success)
         expect(response.body).to eq([menu].to_json)
       end
-    end
 
-    context 'when requisition is a failure' do
       it 'returns an empty array' do
         get(api_v1_menus_path)
 

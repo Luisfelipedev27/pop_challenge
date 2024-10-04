@@ -4,11 +4,7 @@ module Api
       def index
         service = Api::V1::Menus::Fetcher.call
 
-        if service.success?
-          render json: service.menus
-        else
-          render json: { error: service.error_message }, status: :not_found
-        end
+        render json: service.menus
       end
 
       def show
