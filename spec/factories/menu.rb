@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :menu do
     name { "MyString" }
-    description { "MyText" }
+    restaurant
   end
 end
