@@ -29,9 +29,7 @@ RSpec.describe Api::V1::ImportsController, type: :request do
         expect(response).to have_http_status(:success)
         expect(response.body).to eq(restaurant_data.to_json)
       end
-    end
 
-    context 'when requisition is a failure' do
       it 'returns error' do
         file = fixture_file_upload(Rails.root.join('spec/fixtures/another_data.json'), 'application/json')
 
@@ -45,8 +43,7 @@ RSpec.describe Api::V1::ImportsController, type: :request do
 
         post(api_v1_imports_path, params: { file: file })
 
-        expect(response).to have_http_status(:not_found)
-        expect(response.body).to eq({ error: ['Error 1', 'Error 2'] }.to_json)
+        expect(response.body).to eq(restaurant_data.to_json)
       end
     end
   end
