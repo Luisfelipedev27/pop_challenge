@@ -6,6 +6,9 @@ RSpec.describe Api::V1::MenusController, type: :request do
       it 'returns all menus' do
         menu = create(:menu)
 
+        service = double(Api::V1::Menus::Fetcher, success?: true, menus: [menu])
+        allow(Api::V1::Menus::Fetcher).to receive(:call).and_return(service)
+
         get(api_v1_menus_path)
 
         expect(response).to have_http_status(:success)
@@ -13,6 +16,9 @@ RSpec.describe Api::V1::MenusController, type: :request do
       end
 
       it 'returns an empty array' do
+        service = double(Api::V1::Menus::Fetcher, success?: true, menus: [])
+        allow(Api::V1::Menus::Fetcher).to receive(:call).and_return(service)
+
         get(api_v1_menus_path)
 
         expect(response).to have_http_status(:success)
@@ -26,6 +32,9 @@ RSpec.describe Api::V1::MenusController, type: :request do
       it 'returns a menu' do
         menu = create(:menu)
 
+        service = double(Api::V1::Menus::Fetcher, success?: true, menus: [menu])
+        allow(Api::V1::Menus::Fetcher).to receive(:call).with(menu_id: menu.id).and_return(service)
+
         get(api_v1_menu_path(menu.id))
 
         expect(response).to have_http_status(:success)
@@ -35,6 +44,9 @@ RSpec.describe Api::V1::MenusController, type: :request do
 
     context 'when requisition is a failure' do
       it 'returns error' do
+        service = double(Api::V1::Menus::Fetcher, success?: false, error_message: 'Menu not found')
+        allow(Api::V1::Menus::Fetcher).to receive(:call).with(menu_id: 1).and_return(service)
+
         get(api_v1_menu_path(1))
 
         expect(response).to have_http_status(:not_found)
