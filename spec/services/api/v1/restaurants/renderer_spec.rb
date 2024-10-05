@@ -8,6 +8,7 @@ RSpec.describe Api::V1::Restaurants::Renderer do
 
         service = described_class.call(restaurant_id: restaurant.id)
 
+        expect(service).to be_success
         expect(service.restaurant).to eq(restaurant)
       end
     end
@@ -16,6 +17,7 @@ RSpec.describe Api::V1::Restaurants::Renderer do
       it 'returns error' do
         service = described_class.call(restaurant_id: 1)
 
+        expect(service).not_to be_success
         expect(service.error_message).to eq('Restaurant not found')
       end
     end
