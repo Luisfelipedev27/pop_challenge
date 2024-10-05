@@ -6,10 +6,25 @@ RSpec.describe Api::V1::Restaurants::Renderer do
       it 'returns a restaurant' do
         restaurant = create(:restaurant)
 
+        restaurant_response = {
+          name: restaurant.name,
+          menus: restaurant.menus.map do |menu|
+            {
+              name: menu.name,
+              menu_items: menu.menu_items.map do |menu_item|
+                {
+                  name: menu_item.name,
+                  price: menu_item.price
+                }
+              end
+            }
+          end
+        }
+
         service = described_class.call(restaurant_id: restaurant.id)
 
         expect(service).to be_success
-        expect(service.restaurant).to eq(restaurant)
+        expect(service.restaurant).to eq(restaurant_response)
       end
     end
 
