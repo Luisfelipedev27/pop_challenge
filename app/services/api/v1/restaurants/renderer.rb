@@ -21,8 +21,23 @@ module Api
         attr_accessor :restaurant_id
 
         def fetch_restaurant
-          self.restaurant = Restaurant.find(restaurant_id)
+          response = Restaurant.find(restaurant_id)
 
+          self.restaurant = {
+              name: response.name,
+              menus: response.menus.map do |menu|
+                {
+                  name: menu.name,
+                  menu_items: menu.menu_items.map do |menu_item|
+                    {
+                      name: menu_item.name,
+                      price: menu_item.price
+                    }
+                  end
+                }
+              end
+            }
+          
           true
         rescue ActiveRecord::RecordNotFound
           self.error_message = "Restaurant not found"
