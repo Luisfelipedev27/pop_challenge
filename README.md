@@ -1,24 +1,43 @@
-# README
+Developer: Luis Felipe Taveira Barbosa
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Installation
 
-Things you may want to cover:
+Follow the steps below
 
-* Ruby version
+```sh
+$ docker-compose build
 
-* System dependencies
+$ docker-compose run web bundle exec rails db:create
 
-* Configuration
+$ docker-compose run web bundle exec rails db:migrate
 
-* Database creation
+$ docker-compose up
+```
 
-* Database initialization
+### Running Tests
 
-* How to run the test suite
+Use the following commands to run the automated tests.
 
-* Services (job queues, cache servers, search engines, etc.)
+```sh
+$ docker-compose run web bundle exec rspec
+```
 
-* Deployment instructions
+### Enpoints
 
-* ...
+```sh
+# POST/ ENDPOINT TO IMPORT RESTAURANTS
+http://localhost:3000/api/v1/imports #body: { file: restaurant_data.json }
+ # Use postman to upload a file -> restaurant_data.json
+
+# GET/ ENDPOINT TO LIST RESTAURANTS
+http://localhost:3000/api/v1/restaurants
+
+# GET/ ENDPOINT TO LIST A RESTAURANT /:Id
+http://localhost:3000/api/v1/restaurants/1
+
+# GET/ ENDPOINT TO LIST MENUS
+http://localhost:3000/api/v1/menus
+
+# GET/ ENDPOINT TO LIST A MENU /:Id
+http://localhost:3000/api/v1/menus/1
+```
