@@ -8,6 +8,7 @@ RSpec.describe Api::V1::Menus::Renderer do
 
         service = described_class.call(menu_id: menu.id)
 
+        expect(service).to be_success
         expect(service.menu).to eq(menu)
       end
     end
@@ -16,6 +17,7 @@ RSpec.describe Api::V1::Menus::Renderer do
       it 'returns error' do
         service = described_class.call(menu_id: 1)
 
+        expect(service).not_to be_success
         expect(service.error_message).to eq('Menu not found')
       end
     end
