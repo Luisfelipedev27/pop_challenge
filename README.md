@@ -26,8 +26,9 @@ $ docker-compose run web bundle exec rspec
 
 ```sh
 # POST/ ENDPOINT TO IMPORT RESTAURANTS
+# Use postman to upload a file -> restaurant_data.json
 http://localhost:3000/api/v1/imports #body: { file: restaurant_data.json }
- # Use postman to upload a file -> restaurant_data.json
+ 
 
 # GET/ ENDPOINT TO LIST RESTAURANTS
 http://localhost:3000/api/v1/restaurants
